@@ -58,8 +58,10 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee=Employee::find($id);
+        // $employee=Employee::where('id',$id)->first();
         if(!$employee)
         return redirect()->back()->with('error','Employee not exists!');
+
         return view('employee.create',compact('employee'));
     }
 
