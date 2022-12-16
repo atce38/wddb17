@@ -14,6 +14,20 @@
         <label for="name">Name</label>
         <input type="text" name="name" id="name" class="form-control" placeholder="" value="{{ $employee->name }}">
       </div>
+      {{-- Loading All Department in Select Options --}}
+      <div class="form-group">
+        <label for="address">Select Department</label>
+        <select class="form-control" name="dtp_id" id="dtp_id">
+
+            @foreach ($departments as $department)
+            <option {{ $department->id== $employee->dtp_id?'selected':'' }} value="{{ $department->id }}">
+                {{ $department->name }}
+            </option>
+            @endforeach
+
+        </select>
+      </div>
+      {{-- Above is Loading All Department in Select Options --}}
       <div class="form-group">
         <label for="address">Address</label>
         <input type="text" name="address" id="address" class="form-control" value="{{ $employee->address }}">

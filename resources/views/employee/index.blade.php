@@ -15,6 +15,9 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+
+            <th>Department</th>
+            <th>Total Paid</th>
             <th>Address</th>
             <th>Action</th>
         </tr>
@@ -24,8 +27,12 @@
             <tr>
                 <td>{{ ++$key }}</td>
                 <td><img width="100" height="100" src="{{ $employee->image }}" alt="">{{ $employee->name }}</td>
+                <td>{{ $employee->department_name }}</td>
+                <td>{{ "Rs.".$employee->total_salary_paid }}</td>
                 <td>{{ $employee->address }}</td>
-                <td><a class="btn btn-primary" href="{{ route('emp.edit',['id'=>$employee->id]) }}">Edit</a><a class="btn btn-danger" href="{{ route('emp.delete',['id'=>$employee->id]) }}">Delete</a></td>
+                <td><a class="btn btn-primary" href="{{ route('emp.edit',['id'=>$employee->id]) }}">Edit</a><a class="btn btn-danger" href="{{ route('emp.delete',['id'=>$employee->id]) }}">Delete</a>
+                <a class="btn btn-warning" href="{{ route('salary.add',['id'=>$employee->id]) }}">Salary</a></td>
+
             </tr>
             @endforeach
 

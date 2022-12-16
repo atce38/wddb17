@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $employees=Employee::get();
-
+        // return  $employees;
         return view('employee.index',compact('employees'));
     }
 
@@ -53,7 +54,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $employee=new Employee();
-        return view('employee.create',compact('employee'));
+        $departments=Department::get();
+        return view('employee.create',compact('employee','departments'));
     }
     public function edit($id)
     {
@@ -61,8 +63,8 @@ class EmployeeController extends Controller
         // $employee=Employee::where('id',$id)->first();
         if(!$employee)
         return redirect()->back()->with('error','Employee not exists!');
-
-        return view('employee.create',compact('employee'));
+        $departments=Department::get();
+        return view('employee.create',compact('employee','departments'));
     }
 
     public function update(Request $request,$id)
