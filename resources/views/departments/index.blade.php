@@ -13,26 +13,13 @@
     <div class="bg-warning text-center h5">
         Departments
     </div>
-<table class="table table-striped table-inverse table-responsive">
-    <thead class="thead-inverse">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach ($departments as $key=> $department)
-            <tr>
-                <td>{{ ++$key }}</td>
-                <td>{{ $department->name }}</td>
-                <td><a class="btn btn-primary" href="{{ route('departments.edit',['id'=>$department->id]) }}">Edit</a><a class="btn btn-danger" href="{{ route('departments.delete',['id'=>$department->id]) }}">Delete</a></td>
-            </tr>
-            @endforeach
+    <?php
+    $header=[
+        ['title'=>"Name",'attr'=>'name'],
+    ];
 
-
-        </tbody>
-</table>
+    ?>
+@include('components.admin.table',['data_array'=>$departments,'entity'=>'departments','attributes'=>$header])
 </div>
 
 @endsection

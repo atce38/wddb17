@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
+    public function __construct(){
+        $this->middleware('location');
+
+    }
 
     public function index(Request $request)
     {
-        $employees=Employee::get();
+        $employees=Employee::paginate(10);
         // return  $employees;
         return view('employee.index',compact('employees'));
     }

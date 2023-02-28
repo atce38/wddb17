@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ApiPostController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\KuchbController;
 use Illuminate\Support\Facades\Route;
+use Stevebauman\Location\Facades\Location;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,7 @@ Route::group(['prefix'=>'jameel'],function(){
 
 Route::get('route/with/params/fname/{name}/lname/{lname}',[KuchbController::class,'route_with_params']);
 
-Route::group(['prefix'=>'employee'],function(){
+Route::group(['prefix'=>'employee','middlware'=>'location'],function(){
 
     Route::get('/',[EmployeeController::class,'index'])->name('emp.index');
 
@@ -56,8 +60,35 @@ Route::group(['prefix'=>'employee'],function(){
 
 
 
-Route::get('test',function(){
-return sha1(time());
+Route::get('test',function(Request $request){
+
+    $ip=$request->ip();
+    echo $ip.'<br>';
+    if ($position = Location::get("182.187.28.86")) {
+        // Successfully retrieved position.
+        echo $position->countryName.'<br>';
+        echo $position->cityName;
+    } else {
+        // Failed retrieving position.
+    }
+})->middleware('location');
+
+Route::get('posts-from-api',function(){
+
+});
+
+Route::group(['prefix'=>'posts'],function(){
+
+    Route::get('/',[ApiPostController::class,'index'])->name('posts.index');
+
+    Route::get('/create',[ApiPostController::class,'create'])->name('posts.create');
+
+    Route::post('/store', [ApiPostController::class,'store'])->name('posts.store');
+
+    Route::get('/edit/{id}',[ApiPostController::class,'edit'])->name('posts.edit');
+
+    Route::post('/update/{id}', [ApiPostController::class,'update'])->name('posts.update');
+    Route::get('/delete/{id}',[ApiPostController::class,'delete'])->name('posts.delete');
 });
 
 

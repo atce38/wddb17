@@ -9,7 +9,7 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $departments=Department::get();
+        $departments=Department::paginate(10);
 
         return view('departments.index',compact('departments'));
     }

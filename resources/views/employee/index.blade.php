@@ -10,35 +10,19 @@
     <div class="text-end">
         <a class="btn btn-info" href="{{ route('emp.create') }}">Create Employee</a>
     </div>
-<table class="table table-striped table-inverse table-responsive">
-    <thead class="thead-inverse">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
 
-            <th>Department</th>
-            <th>Total Paid</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach ($employees as $key=> $employee)
-            <tr>
-                <td>{{ ++$key }}</td>
-                <td><img width="100" height="100" src="{{ $employee->image }}" alt="">{{ $employee->name }}</td>
-                <td>{{ $employee->department_name }}</td>
-                <td>{{ "Rs.".$employee->total_salary_paid }}</td>
-                <td>{{ $employee->address }}</td>
-                <td><a class="btn btn-primary" href="{{ route('emp.edit',['id'=>$employee->id]) }}">Edit</a><a class="btn btn-danger" href="{{ route('emp.delete',['id'=>$employee->id]) }}">Delete</a>
-                <a class="btn btn-warning" href="{{ route('salary.add',['id'=>$employee->id]) }}">Salary</a></td>
+    <?php
+    $header=[
+        ['title'=>"Img",'attr'=>'image'],
+        ['title'=>"Name",'attr'=>'name'],
+        ['title'=>"Department",'attr'=>'department_name'],
+        ['title'=>"Total Paid",'attr'=>'total_salary_paid'],
+        ['title'=>"Address",'attr'=>'address'],
+    ];
 
-            </tr>
-            @endforeach
+    ?>
+    @include('components.admin.table',['data_array'=>$employees,'entity'=>'emp','attributes'=>$header])
 
-
-        </tbody>
-</table>
 </div>
 
 @endsection
